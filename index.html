@@ -32,12 +32,7 @@
             </div>
 
             <ul class="nav-links">
-                <li>
-                    <a href="#" class="nav-item active" data-target="roadmap-view">
-                        <i data-lucide="map"></i>
-                        <span>Roadmap</span>
-                    </a>
-                </li>
+
                 <li>
                     <a href="#" class="nav-item" data-target="recent-contests-view">
                         <i data-lucide="zap"></i>
@@ -45,7 +40,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-item" data-target="dashboard-view">
+                    <a href="#" class="nav-item active" data-target="dashboard-view">
                         <i data-lucide="user"></i>
                         <span>Dashboard</span>
                     </a>
@@ -72,24 +67,7 @@
                 <p>Syncing Kenkoooo Data...</p>
             </div>
 
-            <!-- Roadmap View -->
-            <section id="roadmap-view" class="view active">
-                <header class="view-header">
-                    <h2>CSES-style Roadmap</h2>
-                    <p>A curated path to mastering competitive programming through AtCoder problems.</p>
-                </header>
-                
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="overall-progress-fill" style="width: 0%;"></div>
-                    </div>
-                    <span id="overall-progress-text">0 / 0 Solved</span>
-                </div>
 
-                <div id="curriculum-container" class="curriculum-container">
-                    <!-- Topics will be dynamically injected here -->
-                </div>
-            </section>
 
             <!-- Contests Archive View -->
             <section id="recent-contests-view" class="view hidden">
@@ -103,7 +81,7 @@
             </section>
 
             <!-- Dashboard View -->
-            <section id="dashboard-view" class="view hidden">
+            <section id="dashboard-view" class="view active">
                 <header class="view-header">
                     <h2>User Dashboard</h2>
                     <p>Your competitive programming statistics and progress.</p>

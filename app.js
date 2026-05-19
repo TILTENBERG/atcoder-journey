@@ -16,13 +16,10 @@ const elements = {
     updateUserBtn: document.getElementById('update-user-btn'),
     navItems: document.querySelectorAll('.nav-item'),
     views: document.querySelectorAll('.view'),
-    curriculumContainer: document.getElementById('curriculum-container'),
     recentContestsContainer: document.getElementById('recent-contests-container'),
     dashboardContainer: document.getElementById('dashboard-container'),
     bootcampContainer: document.getElementById('bootcamp-container'),
-    difficultyContainer: document.getElementById('difficulty-container'),
-    overallProgressFill: document.getElementById('overall-progress-fill'),
-    overallProgressText: document.getElementById('overall-progress-text')
+    difficultyContainer: document.getElementById('difficulty-container')
 };
 
 // Initialize App
@@ -37,7 +34,6 @@ async function init() {
         await fetchUserSubmissions(state.username);
     }
     
-    renderRoadmap();
     renderRecentContests();
     renderDashboard();
     renderBootCamp();
@@ -83,7 +79,6 @@ function setupEventListeners() {
             elements.loadingOverlay.querySelector('p').textContent = 'Fetching User Submissions...';
             
             await fetchUserSubmissions(username);
-            renderRoadmap(); // Re-render to update status
             renderRecentContests();
             renderDashboard();
             renderBootCamp();
@@ -139,79 +134,6 @@ async function fetchUserSubmissions(username) {
 }
 
 // Rendering
-function renderRoadmap() {
-    elements.curriculumContainer.innerHTML = '';
-    
-    let totalProblems = 0;
-    let totalSolved = 0;
-    
-    const problemMap = new Map(state.problems.map(p => [p.id, p]));
-
-    CURRICULUM.forEach((topic, index) => {
-        let topicSolved = 0;
-        
-        const problemHtml = topic.problems.map(probId => {
-            totalProblems++;
-            const isSolved = state.userSubmissions.has(probId);
-            if (isSolved) {
-                topicSolved++;
-                totalSolved++;
-            }
-            
-            const probData = problemMap.get(probId);
-            const title = probData ? probData.title : probId;
-            const model = state.problemModels[probId] || {};
-            const diffClass = getDifficultyColorClass(model.difficulty);
-            const url = probData ? `https://atcoder.jp/contests/${probData.contest_id}/tasks/${probId}` : '#';
-            
-            return `
-                <a href="${url}" target="_blank" class="problem-item">
-                    <div class="problem-info">
-                        <div class="problem-status ${isSolved ? 'solved' : ''}">
-                            <i data-lucide="check"></i>
-                        </div>
-                        <span class="problem-name">${title}</span>
-                    </div>
-                    <div class="problem-meta">
-                        <div class="difficulty-circle ${diffClass}" title="Difficulty: ${model.difficulty !== undefined ? model.difficulty : 'Unknown'}"></div>
-                    </div>
-                </a>
-            `;
-        }).join('');
-        
-        const section = document.createElement('div');
-        section.className = `topic-section ${index === 0 ? 'open' : ''}`;
-        section.innerHTML = `
-            <div class="topic-header">
-                <div class="topic-title-group">
-                    <span class="topic-title">${topic.title}</span>
-                    <span class="topic-stats">${topicSolved} / ${topic.problems.length}</span>
-                </div>
-                <i data-lucide="chevron-down" class="chevron-icon"></i>
-            </div>
-            <div class="topic-content">
-                <div class="problem-list">
-                    ${problemHtml}
-                </div>
-            </div>
-        `;
-        
-        // Accordion Toggle
-        const header = section.querySelector('.topic-header');
-        header.addEventListener('click', () => {
-            section.classList.toggle('open');
-        });
-        
-        elements.curriculumContainer.appendChild(section);
-    });
-    
-    // Update Overall Progress
-    const progressPercent = totalProblems > 0 ? (totalSolved / totalProblems) * 100 : 0;
-    elements.overallProgressFill.style.width = `${progressPercent}%`;
-    elements.overallProgressText.textContent = `${totalSolved} / ${totalProblems} Solved`;
-    
-    lucide.createIcons();
-}
 
 function renderRecentContests() {
     elements.recentContestsContainer.innerHTML = `
