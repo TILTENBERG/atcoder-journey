@@ -44,6 +44,24 @@
                         <span>Contests Archive</span>
                     </a>
                 </li>
+                <li>
+                    <a href="#" class="nav-item" data-target="dashboard-view">
+                        <i data-lucide="user"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-target="bootcamp-view">
+                        <i data-lucide="tent"></i>
+                        <span>Boot Camp</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-target="difficulty-view">
+                        <i data-lucide="grid"></i>
+                        <span>Difficulty Table</span>
+                    </a>
+                </li>
             </ul>
         </nav>
 
@@ -81,6 +99,39 @@
                 </header>
                 <div id="recent-contests-container" class="recent-contests-container">
                     <!-- Recent contests will be injected here -->
+                </div>
+            </section>
+
+            <!-- Dashboard View -->
+            <section id="dashboard-view" class="view hidden">
+                <header class="view-header">
+                    <h2>User Dashboard</h2>
+                    <p>Your competitive programming statistics and progress.</p>
+                </header>
+                <div id="dashboard-container" class="dashboard-container">
+                    <!-- Dashboard stats injected here -->
+                </div>
+            </section>
+
+            <!-- Boot Camp View -->
+            <section id="bootcamp-view" class="view hidden">
+                <header class="view-header">
+                    <h2>Training Boot Camp</h2>
+                    <p>A guided set of problems for steady improvement.</p>
+                </header>
+                <div id="bootcamp-container" class="bootcamp-container">
+                    <!-- Boot camp injected here -->
+                </div>
+            </section>
+
+            <!-- Difficulty Table View -->
+            <section id="difficulty-view" class="view hidden">
+                <header class="view-header">
+                    <h2>Difficulty Table</h2>
+                    <p>All AtCoder problems organized by difficulty tier.</p>
+                </header>
+                <div id="difficulty-container" class="difficulty-container">
+                    <!-- Difficulty table injected here -->
                 </div>
             </section>
         </main>

@@ -501,3 +501,151 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/* Dashboard Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.stat-icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 16px;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* Bar Chart */
+.chart-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+}
+
+.chart-section h3 {
+    margin-bottom: 24px;
+    font-size: 1.25rem;
+}
+
+.bar-chart {
+    display: flex;
+    align-items: flex-end;
+    height: 250px;
+    gap: 12px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.chart-bar-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.chart-bar {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    transition: height 1s ease-out;
+}
+
+.chart-label {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Difficulty Table */
+.difficulty-grid-container {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding-bottom: 24px;
+}
+
+.diff-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+}
+
+.diff-col-header {
+    font-weight: 700;
+    padding: 8px;
+    text-align: center;
+    border-bottom: 2px solid;
+    margin-bottom: 16px;
+}
+
+.diff-gray-text { color: #808080; border-color: #808080; }
+.diff-brown-text { color: #804000; border-color: #804000; }
+.diff-green-text { color: #008000; border-color: #008000; }
+.diff-cyan-text { color: #00C0C0; border-color: #00C0C0; }
+.diff-blue-text { color: #0000FF; border-color: #0000FF; }
+.diff-yellow-text { color: #C0C000; border-color: #C0C000; }
+.diff-orange-text { color: #FF8000; border-color: #FF8000; }
+.diff-red-text { color: #FF0000; border-color: #FF0000; }
+
+.diff-squares {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    align-content: flex-start;
+}
+
+.diff-square {
+    width: 16px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.diff-square:hover {
+    transform: scale(1.5);
+    z-index: 10;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.diff-square.solved {
+    border: none;
+}
+
+.diff-square.solved.diff-gray { background: #808080; }
+.diff-square.solved.diff-brown { background: #804000; }
+.diff-square.solved.diff-green { background: #008000; }
+.diff-square.solved.diff-cyan { background: #00C0C0; }
+.diff-square.solved.diff-blue { background: #0000FF; }
+.diff-square.solved.diff-yellow { background: #C0C000; }
+.diff-square.solved.diff-orange { background: #FF8000; }
+.diff-square.solved.diff-red { background: #FF0000; }
