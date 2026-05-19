@@ -452,44 +452,44 @@ function renderBootCamp() {
             const title = probData ? probData.title : probId;
             const model = state.problemModels[probId] || {};
             const diffClass = getDifficultyColorClass(model.difficulty);
-            const url = probData ? \`https://atcoder.jp/contests/\${probData.contest_id}/tasks/\${probId}\` : '#';
+            const url = probData ? `https://atcoder.jp/contests/${probData.contest_id}/tasks/${probId}` : '#';
             
-            return \`
-                <a href="\${url}" target="_blank" class="problem-item">
+            return `
+                <a href="${url}" target="_blank" class="problem-item">
                     <div class="problem-info">
-                        <div class="problem-status \${isSolved ? 'solved' : ''}">
+                        <div class="problem-status ${isSolved ? 'solved' : ''}">
                             <i data-lucide="check"></i>
                         </div>
-                        <span class="problem-name" style="width: 30px; color: var(--text-muted)">#\${idx + 1}</span>
-                        <span class="problem-name">\${title}</span>
+                        <span class="problem-name" style="width: 30px; color: var(--text-muted)">#${idx + 1}</span>
+                        <span class="problem-name">${title}</span>
                     </div>
                     <div class="problem-meta">
-                        <div class="difficulty-circle \${diffClass}"></div>
+                        <div class="difficulty-circle ${diffClass}"></div>
                     </div>
                 </a>
-            \`;
+            `;
         }).join('');
 
         const progressPercent = (solvedCount / track.problems.length) * 100;
 
-        elements.bootcampContainer.innerHTML += \`
+        elements.bootcampContainer.innerHTML += `
             <div class="topic-section open">
                 <div class="topic-header" style="cursor: default">
                     <div class="topic-title-group">
-                        <span class="topic-title">\${track.title}</span>
+                        <span class="topic-title">${track.title}</span>
                     </div>
-                    <span class="topic-stats">\${solvedCount} / \${track.problems.length}</span>
+                    <span class="topic-stats">${solvedCount} / ${track.problems.length}</span>
                 </div>
                 <div class="progress-bar" style="border-radius: 0; height: 4px;">
-                    <div class="progress-fill" style="width: \${progressPercent}%"></div>
+                    <div class="progress-fill" style="width: ${progressPercent}%"></div>
                 </div>
                 <div class="topic-content" style="display: block">
                     <div class="problem-list">
-                        \${problemHtml}
+                        ${problemHtml}
                     </div>
                 </div>
             </div>
-        \`;
+        `;
     });
     lucide.createIcons();
 }
@@ -527,17 +527,17 @@ function renderDifficultyTable() {
         let squaresHtml = '';
         problems.forEach(p => {
             const isSolved = state.userSubmissions.has(p.id);
-            squaresHtml += \`<a href="https://atcoder.jp/contests/\${p.contest_id}/tasks/\${p.id}" target="_blank" class="diff-square \${isSolved ? 'solved ' + colorClass : ''}" title="\${p.title}"></a>\`;
+            squaresHtml += `<a href="https://atcoder.jp/contests/${p.contest_id}/tasks/${p.id}" target="_blank" class="diff-square ${isSolved ? 'solved ' + colorClass : ''}" title="${p.title}"></a>`;
         });
 
-        html += \`
+        html += `
             <div class="diff-column">
-                <div class="diff-col-header \${colorClass}-text">\${colorNames[colorClass]}</div>
+                <div class="diff-col-header ${colorClass}-text">${colorNames[colorClass]}</div>
                 <div class="diff-squares">
-                    \${squaresHtml}
+                    ${squaresHtml}
                 </div>
             </div>
-        \`;
+        `;
     });
     html += '</div>';
 
