@@ -371,7 +371,7 @@ function renderBootCamp() {
             if (isSolved) solvedCount++;
             
             const probData = problemMap.get(probId);
-            const title = probData ? probData.title : probId;
+            const title = probData ? (probData.name || probId) : probId;
             const model = state.problemModels[probId] || {};
             const diffClass = getDifficultyColorClass(model.difficulty);
             const url = probData ? `https://atcoder.jp/contests/${probData.contest_id}/tasks/${probId}` : '#';
@@ -449,7 +449,7 @@ function renderDifficultyTable() {
         let squaresHtml = '';
         problems.forEach(p => {
             const isSolved = state.userSubmissions.has(p.id);
-            squaresHtml += `<a href="https://atcoder.jp/contests/${p.contest_id}/tasks/${p.id}" target="_blank" class="diff-square ${isSolved ? 'solved ' + colorClass : ''}" title="${p.title}"></a>`;
+            squaresHtml += `<a href="https://atcoder.jp/contests/${p.contest_id}/tasks/${p.id}" target="_blank" class="diff-square ${isSolved ? 'solved ' + colorClass : ''}" title="${p.name}"></a>`;
         });
 
         html += `
