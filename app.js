@@ -245,9 +245,10 @@ function renderRecentContests() {
 
     function renderGrid(category) {
         gridContent.innerHTML = '';
-        const recentContests = categorizedContests[category].slice(0, 12); // top 12 per category
+        const allContests = categorizedContests[category]; // show all contests
 
-        recentContests.forEach(contest => {
+        let htmlString = '';
+        allContests.forEach(contest => {
             const contestProblems = problemsByContest[contest.id] || [];
             contestProblems.sort((a, b) => a.problem_index.localeCompare(b.problem_index));
             
@@ -267,7 +268,7 @@ function renderRecentContests() {
                 `;
             }).join('');
             
-            gridContent.innerHTML += `
+            htmlString += `
                 <div class="contest-card">
                     <a href="https://atcoder.jp/contests/${contest.id}" target="_blank" class="contest-title">${contest.title}</a>
                     <div class="contest-meta">Date: ${date}</div>
@@ -277,6 +278,8 @@ function renderRecentContests() {
                 </div>
             `;
         });
+        
+        gridContent.innerHTML = htmlString;
         lucide.createIcons();
     }
 
