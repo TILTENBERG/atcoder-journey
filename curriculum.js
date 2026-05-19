@@ -52,6 +52,39 @@ const CURRICULUM = [
             "abc170_d", // Not Divisible
             "abc177_d"  // Friends
         ]
+    },
+    {
+        id: "math",
+        title: "Math & Number Theory",
+        problems: [
+            "abc148_c", // Snack (LCM)
+            "abc169_b", // Multiplication 2
+            "abc180_c", // Cream puff (Divisors)
+            "abc182_c", // To 3
+            "abc186_c"  // Unlucky 7
+        ]
+    },
+    {
+        id: "data_structures",
+        title: "Data Structures",
+        problems: [
+            "abc185_f", // Range Xor Query (Segment Tree)
+            "abc187_d", // Choose Me (Sorting/Priority Queue)
+            "abc194_e", // Mex Min
+            "abc228_d", // Linear Probing
+            "arc114_a"  // Not coprime
+        ]
+    },
+    {
+        id: "greedy",
+        title: "Greedy Algorithms",
+        problems: [
+            "abc083_c", // Multiple Gift
+            "abc091_c", // 2D Plane 2N Points
+            "abc103_d", // Islands War
+            "abc131_d", // Megalomania
+            "abc137_d"  // Summer Vacation
+        ]
     }
 ];
 

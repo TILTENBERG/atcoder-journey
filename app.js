@@ -202,14 +202,39 @@ function renderRoadmap() {
 }
 
 function renderRecentContests() {
-    elements.recentContestsContainer.innerHTML = '';
-    
-    // Sort contests by start time descending
-    const sortedContests = [...state.contests].sort((a, b) => b.start_epoch_second - a.start_epoch_second);
-    
-    // Get latest 12 valid contests
-    const recentContests = sortedContests.slice(0, 12);
-    
+    elements.recentContestsContainer.innerHTML = `
+        <div class="contest-tabs">
+            <button class="contest-tab active" data-category="abc">ABC</button>
+            <button class="contest-tab" data-category="arc">ARC</button>
+            <button class="contest-tab" data-category="agc">AGC</button>
+            <button class="contest-tab" data-category="others">Others</button>
+        </div>
+        <div class="contests-grid" id="contests-grid-content"></div>
+    `;
+
+    const tabs = elements.recentContestsContainer.querySelectorAll('.contest-tab');
+    const gridContent = document.getElementById('contests-grid-content');
+
+    // Group contests
+    const categorizedContests = {
+        abc: [],
+        arc: [],
+        agc: [],
+        others: []
+    };
+
+    state.contests.forEach(c => {
+        if (c.id.startsWith('abc')) categorizedContests.abc.push(c);
+        else if (c.id.startsWith('arc')) categorizedContests.arc.push(c);
+        else if (c.id.startsWith('agc')) categorizedContests.agc.push(c);
+        else categorizedContests.others.push(c);
+    });
+
+    // Sort each category descending
+    Object.keys(categorizedContests).forEach(cat => {
+        categorizedContests[cat].sort((a, b) => b.start_epoch_second - a.start_epoch_second);
+    });
+
     const problemsByContest = {};
     state.problems.forEach(p => {
         if (!problemsByContest[p.contest_id]) {
@@ -217,43 +242,54 @@ function renderRecentContests() {
         }
         problemsByContest[p.contest_id].push(p);
     });
-    
-    const grid = document.createElement('div');
-    grid.className = 'contests-grid';
-    
-    recentContests.forEach(contest => {
-        const contestProblems = problemsByContest[contest.id] || [];
-        contestProblems.sort((a, b) => a.problem_index.localeCompare(b.problem_index));
-        
-        const date = new Date(contest.start_epoch_second * 1000).toLocaleDateString();
-        
-        const problemsHtml = contestProblems.map(p => {
-            const model = state.problemModels[p.id] || {};
-            const diffClass = getDifficultyColorClass(model.difficulty);
-            const isSolved = state.userSubmissions.has(p.id);
+
+    function renderGrid(category) {
+        gridContent.innerHTML = '';
+        const recentContests = categorizedContests[category].slice(0, 12); // top 12 per category
+
+        recentContests.forEach(contest => {
+            const contestProblems = problemsByContest[contest.id] || [];
+            contestProblems.sort((a, b) => a.problem_index.localeCompare(b.problem_index));
             
-            return `
-                <a href="https://atcoder.jp/contests/${contest.id}/tasks/${p.id}" target="_blank" class="contest-problem-link">
-                    <div class="difficulty-circle ${diffClass}"></div>
-                    <span class="contest-problem-title">${p.problem_index}. ${p.name}</span>
-                    ${isSolved ? '<i data-lucide="check" style="color: var(--success); width: 14px; height: 14px; margin-left: auto;"></i>' : ''}
-                </a>
-            `;
-        }).join('');
-        
-        grid.innerHTML += `
-            <div class="contest-card">
-                <a href="https://atcoder.jp/contests/${contest.id}" target="_blank" class="contest-title">${contest.title}</a>
-                <div class="contest-meta">Date: ${date}</div>
-                <div class="contest-problems">
-                    ${problemsHtml}
+            const date = new Date(contest.start_epoch_second * 1000).toLocaleDateString();
+            
+            const problemsHtml = contestProblems.map(p => {
+                const model = state.problemModels[p.id] || {};
+                const diffClass = getDifficultyColorClass(model.difficulty);
+                const isSolved = state.userSubmissions.has(p.id);
+                
+                return `
+                    <a href="https://atcoder.jp/contests/${contest.id}/tasks/${p.id}" target="_blank" class="contest-problem-link">
+                        <div class="difficulty-circle ${diffClass}"></div>
+                        <span class="contest-problem-title">${p.problem_index}. ${p.name}</span>
+                        ${isSolved ? '<i data-lucide="check" style="color: var(--success); width: 14px; height: 14px; margin-left: auto;"></i>' : ''}
+                    </a>
+                `;
+            }).join('');
+            
+            gridContent.innerHTML += `
+                <div class="contest-card">
+                    <a href="https://atcoder.jp/contests/${contest.id}" target="_blank" class="contest-title">${contest.title}</a>
+                    <div class="contest-meta">Date: ${date}</div>
+                    <div class="contest-problems">
+                        ${problemsHtml}
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
+        });
+        lucide.createIcons();
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            renderGrid(tab.getAttribute('data-category'));
+        });
     });
-    
-    elements.recentContestsContainer.appendChild(grid);
-    lucide.createIcons();
+
+    // Initial render
+    renderGrid('abc');
 }
 
 // Start

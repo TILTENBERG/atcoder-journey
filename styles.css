@@ -407,6 +407,38 @@ body {
     100% { transform: rotate(360deg); }
 }
 
+/* Contest Tabs */
+.contest-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+}
+
+.contest-tab {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    font-family: var(--font-family);
+}
+
+.contest-tab:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.contest-tab.active {
+    background: var(--accent-glow);
+    color: var(--accent-primary);
+}
+
 /* Recent Contests Grid */
 .contests-grid {
     display: grid;
